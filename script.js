@@ -9,7 +9,7 @@
 
 // ضع Project URL الخاص بك هنا
 const SUPABASE_URL =
-    "sb_publishable_-Vbi1NmSWSciLOLMIvBY7w_INm0qo0w";
+    "https://mpzdmdcqjaxdlfhsevyd.supabase.co/rest/v1/";
 
 
 // ضع Publishable key الخاص بك هنا
