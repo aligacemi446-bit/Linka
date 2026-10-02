@@ -1,1 +1,431 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family: Arial, sans-serif;
+
+    background: #f0f2f5;
+
+    color: #1c1e21;
+}
+
+
+/* الشريط العلوي */
+
+.topbar {
+    height: 65px;
+
+    background: white;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 25px;
+
+    gap: 25px;
+
+    border-bottom: 1px solid #ddd;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+
+    color: #1877f2;
+
+    width: 150px;
+}
+
+.search {
+    flex: 1;
+}
+
+.search input {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    background: #f0f2f5;
+
+    border-radius: 25px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.top-actions button {
+    border: none;
+
+    background: #f0f2f5;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.top-actions button:hover {
+    background: #ddd;
+}
+
+
+/* التخطيط */
+
+.layout {
+    max-width: 1400px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 230px 1fr 280px;
+
+    gap: 25px;
+
+    padding: 25px;
+}
+
+
+/* القائمة */
+
+.sidebar {
+    position: sticky;
+
+    top: 90px;
+
+    height: fit-content;
+}
+
+.profile-mini {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.profile-mini span,
+.post-header span,
+.friend span {
+    display: block;
+
+    color: #777;
+
+    font-size: 13px;
+
+    margin-top: 4px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: #1877f2;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+
+    flex-shrink: 0;
+}
+
+hr {
+    border: none;
+
+    border-top: 1px solid #ddd;
+
+    margin: 15px 0;
+}
+
+.side-button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 5px;
+
+    border: none;
+
+    background: transparent;
+
+    text-align: right;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+.side-button:hover,
+.side-button.active {
+    background: #e4e6eb;
+}
+
+
+/* المنشورات */
+
+.feed {
+    min-width: 0;
+}
+
+.create-post,
+.post {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.create-post {
+    display: grid;
+
+    grid-template-columns: 45px 1fr;
+
+    gap: 12px;
+}
+
+.create-post textarea {
+    width: 100%;
+
+    min-height: 70px;
+
+    resize: none;
+
+    border: none;
+
+    outline: none;
+
+    background: #f0f2f5;
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+}
+
+.post-actions {
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-top: 1px solid #eee;
+
+    padding-top: 15px;
+}
+
+.post-actions button {
+    border: none;
+
+    background: transparent;
+
+    padding: 8px 12px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.post-actions button:hover {
+    background: #f0f2f5;
+}
+
+.post-actions .publish {
+    margin-right: auto;
+
+    background: #1877f2;
+
+    color: white;
+
+    padding: 9px 25px;
+}
+
+.post-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.post p {
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+
+    font-size: 16px;
+}
+
+.post-footer {
+    border-top: 1px solid #eee;
+
+    padding-top: 12px;
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.post-footer button {
+    flex: 1;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 10px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.post-footer button:hover {
+    background: #f0f2f5;
+}
+
+.like-btn.liked {
+    color: #1877f2;
+}
+
+
+/* الجانب الأيمن */
+
+.rightbar {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    height: fit-content;
+
+    position: sticky;
+
+    top: 90px;
+}
+
+.rightbar h3 {
+    margin-bottom: 20px;
+}
+
+.friend {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.friend > div:nth-child(2) {
+    flex: 1;
+}
+
+.friend button {
+    border: none;
+
+    background: #e7f3ff;
+
+    color: #1877f2;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+/* الهاتف */
+
+@media (max-width: 1000px) {
+
+    .layout {
+        grid-template-columns: 200px 1fr;
+    }
+
+    .rightbar {
+        display: none;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .logo {
+        width: auto;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .layout {
+        display: block;
+
+        padding: 10px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .feed {
+        width: 100%;
+    }
+
+}
