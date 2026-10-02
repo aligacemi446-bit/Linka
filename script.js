@@ -1970,3 +1970,13 @@ function sendMessage() {
 بعدها جرّب من الحساب الأول البحث عن **اسم المستخدم الخاص بالحساب الثاني** وإرسال طلب صداقة.
 
 إذا ظهرت لك رسالة خطأ، **لا تغيّر شيئًا آخر**؛ أرسل لي الخطأ وسنصلحه.
+
+// ==========================================
+// FIX: Make functions available to HTML onclick
+// ==========================================
+
+window.showPage = showPage;
+window.logout = logout;
+window.createPost = createPost;
+window.searchPosts = searchPosts;
+window.toggleDarkMode = toggleDarkMode;
