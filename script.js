@@ -7,7 +7,6 @@
 // 1. SUPABASE SETTINGS
 // ==================================================
 
-// ضع Project URL الخاص بك هنا
 const SUPABASE_URL =
     "https://mpzdmdcqjaxdlfhsevyd.supabase.co/rest/v1/";
 
