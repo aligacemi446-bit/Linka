@@ -1,453 +1,412 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Linka</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
 
-<!-- ==================== HEADER ==================== -->
-
 <header class="topbar">
-
-    <button class="mobile-menu" id="mobileMenu">
-        ☰
-    </button>
 
     <div class="logo">
         Linka
     </div>
 
-    <div class="search-box">
-        🔎
+    <div class="search">
         <input
-            type="text"
             id="searchInput"
-            placeholder="ابحث في Linka..."
+            type="text"
+            placeholder="ابحث..."
+            oninput="searchPosts()"
         >
     </div>
 
-    <div class="top-actions">
+    <nav>
 
-        <button id="homeButton" title="الرئيسية">
+        <button onclick="showPage('home')">
             🏠
         </button>
 
-        <button id="messagesButton" title="Messenger">
+        <button onclick="showPage('friends')">
+            👥
+        </button>
+
+        <button onclick="showPage('messages')">
             💬
-            <span class="notification-dot">2</span>
         </button>
 
-        <button id="notificationsButton" title="الإشعارات">
+        <button onclick="showPage('notifications')">
             🔔
-            <span class="notification-dot">3</span>
         </button>
 
-        <button id="profileButton" title="الملف الشخصي">
+        <button onclick="showPage('profile')">
             👤
         </button>
 
-    </div>
+    </nav>
 
 </header>
 
 
-<!-- ==================== MOBILE MENU ==================== -->
-
-<div class="mobile-sidebar" id="mobileSidebar">
-
-    <button data-page="home">🏠 الرئيسية</button>
-    <button data-page="profile">👤 الملف الشخصي</button>
-    <button data-page="friends">👥 الأصدقاء</button>
-    <button data-page="messages">💬 Messenger</button>
-    <button data-page="notifications">🔔 الإشعارات</button>
-    <button data-page="settings">⚙️ الإعدادات</button>
-
-</div>
-
-
-<!-- ==================== MAIN LAYOUT ==================== -->
-
 <div class="layout">
 
-
-    <!-- ==================== SIDEBAR ==================== -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
-        <div class="profile-mini">
+        <div class="mini-profile">
 
             <div class="avatar">
-                A
+                👤
             </div>
 
             <div>
-                <strong>Alex</strong>
-                <span>@alex</span>
+
+                <strong id="sideUsername">
+                    زائر
+                </strong>
+
+                <small>
+                    Linka
+                </small>
+
             </div>
 
         </div>
 
-        <hr>
 
-        <button class="side-button active" data-page="home">
+        <button onclick="showPage('home')">
             🏠 الرئيسية
         </button>
 
-        <button class="side-button" data-page="profile">
-            👤 الملف الشخصي
+        <button onclick="showPage('profile')">
+            👤 ملفي
         </button>
 
-        <button class="side-button" data-page="friends">
+        <button onclick="showPage('friends')">
             👥 الأصدقاء
         </button>
 
-        <button class="side-button" data-page="messages">
-            💬 Messenger
+        <button onclick="showPage('messages')">
+            💬 الرسائل
         </button>
 
-        <button class="side-button" data-page="notifications">
+        <button onclick="showPage('notifications')">
             🔔 الإشعارات
         </button>
 
-        <button class="side-button" data-page="settings">
+        <button onclick="showPage('settings')">
             ⚙️ الإعدادات
         </button>
 
         <hr>
 
-        <button class="side-button" id="darkModeButton">
+        <button onclick="toggleDarkMode()">
             🌙 الوضع الليلي
+        </button>
+
+        <button
+            id="logoutButton"
+            onclick="logout()">
+
+            🚪 تسجيل الخروج
+
         </button>
 
     </aside>
 
 
-    <!-- ==================== CONTENT ==================== -->
+    <!-- MAIN -->
 
-    <main class="content">
-
-
-        <!-- ==================== HOME ==================== -->
-
-        <section class="page active-page" id="homePage">
-
-            <div class="page-title">
-                <h1>الرئيسية</h1>
-                <p>مرحبًا بك في Linka 👋</p>
-            </div>
+    <main class="main">
 
 
-            <!-- CREATE POST -->
+        <!-- LOGIN / REGISTER -->
 
-            <div class="create-post">
+        <section
+            id="authPage"
+            class="page">
 
-                <div class="avatar">
-                    A
-                </div>
+            <div class="auth-box">
 
-                <textarea
-                    id="postInput"
-                    placeholder="ماذا تريد أن تقول؟"
-                ></textarea>
+                <h1>
+                    Linka
+                </h1>
 
-                <div class="post-actions">
+                <p>
+                    تواصل مع أصدقائك بسهولة
+                </p>
 
-                    <button>
-                        📷 صورة
-                    </button>
 
-                    <button>
-                        😊 شعور
+                <div class="tabs">
+
+                    <button
+                        id="loginTab"
+                        class="active"
+                        onclick="showAuth('login')">
+
+                        تسجيل الدخول
+
                     </button>
 
                     <button
-                        class="publish"
-                        id="publishButton"
-                    >
-                        نشر
+                        id="registerTab"
+                        onclick="showAuth('register')">
+
+                        إنشاء حساب
+
                     </button>
 
                 </div>
 
-            </div>
+
+                <!-- LOGIN -->
+
+                <div id="loginForm">
+
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        placeholder="البريد الإلكتروني"
+                    >
+
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        placeholder="كلمة المرور"
+                    >
+
+                    <button
+                        class="primary"
+                        onclick="login()">
+
+                        تسجيل الدخول
+
+                    </button>
+
+                </div>
 
 
-            <!-- POSTS -->
+                <!-- REGISTER -->
 
-            <div id="posts">
+                <div
+                    id="registerForm"
+                    class="hidden">
 
+                    <input
+                        id="registerUsername"
+                        type="text"
+                        placeholder="اسم المستخدم"
+                    >
 
-                <article class="post">
+                    <input
+                        id="registerEmail"
+                        type="email"
+                        placeholder="البريد الإلكتروني"
+                    >
 
-                    <div class="post-header">
+                    <input
+                        id="registerPassword"
+                        type="password"
+                        placeholder="كلمة المرور"
+                    >
 
-                        <div class="avatar">
-                            M
-                        </div>
+                    <button
+                        class="primary"
+                        onclick="register()">
 
-                        <div>
-                            <strong>Mohamed</strong>
-                            <span>منذ ساعتين</span>
-                        </div>
+                        إنشاء الحساب
 
-                    </div>
+                    </button>
 
-                    <p>
-                        مرحبًا بالجميع 👋
-                        هذه أول مشاركة لي على Linka!
-                    </p>
-
-                    <div class="post-footer">
-
-                        <button class="like-button">
-                            ❤️ <span>12</span>
-                        </button>
-
-                        <button>
-                            💬 4
-                        </button>
-
-                        <button>
-                            ↗️ مشاركة
-                        </button>
-
-                    </div>
-
-                </article>
+                </div>
 
 
-                <article class="post">
-
-                    <div class="post-header">
-
-                        <div class="avatar">
-                            S
-                        </div>
-
-                        <div>
-                            <strong>Sarah</strong>
-                            <span>منذ 5 ساعات</span>
-                        </div>
-
-                    </div>
-
-                    <p>
-                        ما رأيكم في تصميم Linka؟ 🔥
-                    </p>
-
-                    <div class="post-footer">
-
-                        <button class="like-button">
-                            ❤️ <span>25</span>
-                        </button>
-
-                        <button>
-                            💬 8
-                        </button>
-
-                        <button>
-                            ↗️ مشاركة
-                        </button>
-
-                    </div>
-
-                </article>
-
+                <div
+                    id="authMessage"
+                    class="message-box">
+                </div>
 
             </div>
 
         </section>
 
 
+        <!-- HOME -->
 
-        <!-- ==================== PROFILE ==================== -->
+        <section
+            id="homePage"
+            class="page hidden">
 
-        <section class="page" id="profilePage">
+            <h2>
+                الرئيسية
+            </h2>
 
-            <div class="profile-cover"></div>
 
-            <div class="profile-card">
+            <div class="create-post">
 
-                <div class="large-avatar">
-                    A
-                </div>
+                <textarea
+                    id="postContent"
+                    placeholder="بماذا تفكر؟">
+                </textarea>
 
-                <h1>Alex</h1>
+                <button
+                    class="primary"
+                    onclick="createPost()">
 
-                <p>@alex</p>
+                    نشر المنشور
 
-                <p class="bio">
-                    مرحبًا! أنا أستخدم Linka 🚀
-                </p>
-
-                <div class="profile-stats">
-
-                    <div>
-                        <strong>125</strong>
-                        <span>منشور</span>
-                    </div>
-
-                    <div>
-                        <strong>248</strong>
-                        <span>أصدقاء</span>
-                    </div>
-
-                    <div>
-                        <strong>1.2K</strong>
-                        <span>إعجاب</span>
-                    </div>
-
-                </div>
-
-                <button class="edit-profile">
-                    ✏️ تعديل الملف الشخصي
                 </button>
 
             </div>
 
+
+            <div id="postsContainer">
+
+            </div>
+
         </section>
 
 
+        <!-- PROFILE -->
 
-        <!-- ==================== FRIENDS ==================== -->
+        <section
+            id="profilePage"
+            class="page hidden">
 
-        <section class="page" id="friendsPage">
+            <div class="cover">
 
-            <div class="page-title">
+            </div>
 
-                <h1>الأصدقاء 👥</h1>
 
-                <p>
-                    أصدقاؤك واقتراحات الأصدقاء
+            <div class="profile-card">
+
+                <div class="big-avatar">
+                    👤
+                </div>
+
+                <h2 id="profileName">
+                    المستخدم
+                </h2>
+
+                <p id="profileUsername">
+                    @user
+                </p>
+
+                <p id="profileBio">
+                    مرحبًا بك في Linka!
                 </p>
 
             </div>
 
+        </section>
+
+
+        <!-- FRIENDS -->
+
+        <section
+            id="friendsPage"
+            class="page hidden">
+
+            <h2>
+                الأصدقاء
+            </h2>
 
             <div class="friends-grid">
 
+                <div class="friend">
 
-                <div class="friend-card">
-
-                    <div class="large-avatar">
-                        Y
+                    <div class="friend-avatar">
+                        👨
                     </div>
 
-                    <h3>Yacine</h3>
+                    <h3>
+                        Yacine
+                    </h3>
 
-                    <p>3 أصدقاء مشتركون</p>
-
-                    <button class="primary-button">
+                    <button>
                         إضافة صديق
                     </button>
 
                 </div>
 
 
-                <div class="friend-card">
+                <div class="friend">
 
-                    <div class="large-avatar">
-                        N
+                    <div class="friend-avatar">
+                        👩
                     </div>
 
-                    <h3>Nour</h3>
+                    <h3>
+                        Nour
+                    </h3>
 
-                    <p>5 أصدقاء مشتركون</p>
-
-                    <button class="primary-button">
+                    <button>
                         إضافة صديق
                     </button>
 
                 </div>
 
 
-                <div class="friend-card">
+                <div class="friend">
 
-                    <div class="large-avatar">
-                        M
+                    <div class="friend-avatar">
+                        👨
                     </div>
 
-                    <h3>Mohamed</h3>
+                    <h3>
+                        Mohamed
+                    </h3>
 
-                    <p>8 أصدقاء مشتركون</p>
-
-                    <button class="primary-button">
+                    <button>
                         إضافة صديق
                     </button>
 
                 </div>
-
 
             </div>
 
         </section>
 
 
+        <!-- MESSAGES -->
 
-        <!-- ==================== MESSAGES ==================== -->
+        <section
+            id="messagesPage"
+            class="page hidden">
 
-        <section class="page" id="messagesPage">
-
-            <div class="page-title">
-
-                <h1>Messenger 💬</h1>
-
-                <p>
-                    محادثاتك
-                </p>
-
-            </div>
-
+            <h2>
+                Messenger
+            </h2>
 
             <div class="messenger">
 
-                <div class="conversation-list">
+                <div class="conversations">
 
                     <div class="conversation active">
-
-                        <div class="avatar">
-                            M
-                        </div>
-
-                        <div>
-                            <strong>Mohamed</strong>
-                            <span>مرحبًا!</span>
-                        </div>
-
+                        👨 Mohamed
                     </div>
 
-
                     <div class="conversation">
-
-                        <div class="avatar">
-                            S
-                        </div>
-
-                        <div>
-                            <strong>Sarah</strong>
-                            <span>كيف حالك؟</span>
-                        </div>
-
+                        👩 Nour
                     </div>
 
-
                     <div class="conversation">
-
-                        <div class="avatar">
-                            Y
-                        </div>
-
-                        <div>
-                            <strong>Yacine</strong>
-                            <span>نراك لاحقًا</span>
-                        </div>
-
+                        👨 Yacine
                     </div>
 
                 </div>
@@ -456,34 +415,15 @@
                 <div class="chat">
 
                     <div class="chat-header">
-
-                        <div class="avatar">
-                            M
-                        </div>
-
-                        <div>
-                            <strong>Mohamed</strong>
-                            <span>متصل الآن</span>
-                        </div>
-
+                        Mohamed
                     </div>
 
-
                     <div
-                        class="chat-messages"
                         id="chatMessages"
-                    >
+                        class="chat-messages">
 
-                        <div class="message received">
+                        <div class="received">
                             مرحبًا 👋
-                        </div>
-
-                        <div class="message sent">
-                            مرحبًا! كيف حالك؟
-                        </div>
-
-                        <div class="message received">
-                            بخير الحمد لله 🔥
                         </div>
 
                     </div>
@@ -492,13 +432,19 @@
                     <div class="chat-input">
 
                         <input
-                            type="text"
                             id="messageInput"
                             placeholder="اكتب رسالة..."
+                            onkeydown="
+                                if(event.key==='Enter')
+                                sendMessage()
+                            "
                         >
 
-                        <button id="sendMessage">
-                            ➤
+                        <button
+                            onclick="sendMessage()">
+
+                            إرسال
+
                         </button>
 
                     </div>
@@ -510,181 +456,69 @@
         </section>
 
 
+        <!-- NOTIFICATIONS -->
 
-        <!-- ==================== NOTIFICATIONS ==================== -->
+        <section
+            id="notificationsPage"
+            class="page hidden">
 
-        <section class="page" id="notificationsPage">
+            <h2>
+                الإشعارات
+            </h2>
 
-            <div class="page-title">
-
-                <h1>الإشعارات 🔔</h1>
-
-                <p>
-                    آخر النشاطات
-                </p>
-
-            </div>
-
-
-            <div class="notifications">
-
-
-                <div class="notification">
-
-                    <div class="avatar">
-                        M
-                    </div>
-
-                    <p>
-                        <strong>Mohamed</strong>
-                        أعجب بمنشورك ❤️
-                    </p>
-
-                    <span>
-                        منذ 5 دقائق
-                    </span>
-
-                </div>
-
-
-                <div class="notification">
-
-                    <div class="avatar">
-                        S
-                    </div>
-
-                    <p>
-                        <strong>Sarah</strong>
-                        أرسلت لك رسالة 💬
-                    </p>
-
-                    <span>
-                        منذ 20 دقيقة
-                    </span>
-
-                </div>
-
-
-                <div class="notification">
-
-                    <div class="avatar">
-                        Y
-                    </div>
-
-                    <p>
-                        <strong>Yacine</strong>
-                        أرسل لك طلب صداقة 👥
-                    </p>
-
-                    <span>
-                        منذ ساعة
-                    </span>
-
-                </div>
-
-
+            <div class="notification">
+                🔔 لا توجد إشعارات جديدة.
             </div>
 
         </section>
 
 
+        <!-- SETTINGS -->
 
-        <!-- ==================== SETTINGS ==================== -->
+        <section
+            id="settingsPage"
+            class="page hidden">
 
-        <section class="page" id="settingsPage">
+            <h2>
+                الإعدادات
+            </h2>
 
-            <div class="page-title">
+            <div class="setting">
 
-                <h1>الإعدادات ⚙️</h1>
+                <span>
+                    🌙 الوضع الليلي
+                </span>
 
-                <p>
-                    قم بتخصيص حسابك
-                </p>
+                <button
+                    onclick="toggleDarkMode()">
+
+                    تغيير
+
+                </button>
 
             </div>
 
+            <div class="setting">
 
-            <div class="settings-card">
+                <span>
+                    🔔 الإشعارات
+                </span>
 
-
-                <div class="setting">
-
-                    <div>
-                        <strong>الوضع الليلي</strong>
-                        <span>
-                            تغيير مظهر الموقع
-                        </span>
-                    </div>
-
-                    <button
-                        id="settingsDarkMode"
-                        class="toggle"
-                    >
-                        🌙
-                    </button>
-
-                </div>
-
-
-                <div class="setting">
-
-                    <div>
-                        <strong>الإشعارات</strong>
-                        <span>
-                            السماح بإظهار الإشعارات
-                        </span>
-                    </div>
-
-                    <button class="toggle active">
-                        ✓
-                    </button>
-
-                </div>
-
-
-                <div class="setting">
-
-                    <div>
-                        <strong>الخصوصية</strong>
-                        <span>
-                            التحكم في خصوصية حسابك
-                        </span>
-                    </div>
-
-                    <button class="setting-arrow">
-                        ←
-                    </button>
-
-                </div>
-
-
-                <div class="setting">
-
-                    <div>
-                        <strong>اللغة</strong>
-                        <span>
-                            العربية
-                        </span>
-                    </div>
-
-                    <button class="setting-arrow">
-                        ←
-                    </button>
-
-                </div>
-
+                <button>
+                    تشغيل
+                </button>
 
             </div>
 
         </section>
-
 
     </main>
 
+</div>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
+
 </html>
