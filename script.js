@@ -1,3 +1,4 @@
+```javascript
 // ==================================================
 // LINKA + SUPABASE
 // ==================================================
@@ -29,7 +30,6 @@ const supabaseClient =
 // ==================================================
 
 let currentUser = null;
-
 let allPosts = [];
 
 
@@ -42,7 +42,6 @@ document.addEventListener(
     () => {
 
         checkUser();
-
         loadDarkMode();
 
     }
@@ -124,36 +123,37 @@ function updateInterface() {
 
     if (!currentUser) {
 
-        authPage.classList.remove(
-            "hidden"
-        );
+        if (authPage) {
+            authPage.classList.remove("hidden");
+        }
 
-        homePage.classList.add(
-            "hidden"
-        );
+        if (homePage) {
+            homePage.classList.add("hidden");
+        }
 
-        logoutButton.style.display =
-            "none";
+        if (logoutButton) {
+            logoutButton.style.display = "none";
+        }
 
         return;
 
     }
 
 
-    authPage.classList.add(
-        "hidden"
-    );
+    if (authPage) {
+        authPage.classList.add("hidden");
+    }
 
-    homePage.classList.remove(
-        "hidden"
-    );
+    if (homePage) {
+        homePage.classList.remove("hidden");
+    }
 
-    logoutButton.style.display =
-        "block";
+    if (logoutButton) {
+        logoutButton.style.display = "block";
+    }
 
 
     loadProfile();
-
     loadPosts();
 
 }
@@ -188,39 +188,19 @@ function showAuth(type) {
 
     if (type === "login") {
 
-        loginForm.classList.remove(
-            "hidden"
-        );
+        loginForm.classList.remove("hidden");
+        registerForm.classList.add("hidden");
 
-        registerForm.classList.add(
-            "hidden"
-        );
-
-        loginTab.classList.add(
-            "active"
-        );
-
-        registerTab.classList.remove(
-            "active"
-        );
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
 
     } else {
 
-        loginForm.classList.add(
-            "hidden"
-        );
+        loginForm.classList.add("hidden");
+        registerForm.classList.remove("hidden");
 
-        registerForm.classList.remove(
-            "hidden"
-        );
-
-        loginTab.classList.remove(
-            "active"
-        );
-
-        registerTab.classList.add(
-            "active"
-        );
+        loginTab.classList.remove("active");
+        registerTab.classList.add("active");
 
     }
 
@@ -285,8 +265,6 @@ async function register() {
         "جاري إنشاء الحساب...";
 
 
-    // إنشاء حساب Auth
-
     const {
         data,
         error
@@ -294,7 +272,6 @@ async function register() {
         await supabaseClient.auth.signUp({
 
             email: email,
-
             password: password
 
         });
@@ -322,8 +299,6 @@ async function register() {
     }
 
 
-    // إنشاء Profile
-
     const {
         error: profileError
     } =
@@ -332,11 +307,8 @@ async function register() {
             .insert({
 
                 id: data.user.id,
-
                 username: username,
-
                 full_name: username,
-
                 bio: "مرحبًا بك في Linka!"
 
             });
@@ -344,9 +316,7 @@ async function register() {
 
     if (profileError) {
 
-        console.error(
-            profileError
-        );
+        console.error(profileError);
 
         message.textContent =
             "تم إنشاء الحساب ولكن حدث خطأ في الملف الشخصي.";
@@ -359,8 +329,6 @@ async function register() {
     message.textContent =
         "تم إنشاء الحساب بنجاح!";
 
-
-    // تنظيف الحقول
 
     document.getElementById(
         "registerUsername"
@@ -423,7 +391,6 @@ async function login() {
             .signInWithPassword({
 
                 email: email,
-
                 password: password
 
             });
@@ -443,7 +410,6 @@ async function login() {
 
     currentUser =
         data.user;
-
 
     message.textContent = "";
 
@@ -512,30 +478,48 @@ async function loadProfile() {
     }
 
 
-    document.getElementById(
-        "sideUsername"
-    ).textContent =
-        data.username;
+    const sideUsername =
+        document.getElementById(
+            "sideUsername"
+        );
+
+    const profileName =
+        document.getElementById(
+            "profileName"
+        );
+
+    const profileUsername =
+        document.getElementById(
+            "profileUsername"
+        );
+
+    const profileBio =
+        document.getElementById(
+            "profileBio"
+        );
 
 
-    document.getElementById(
-        "profileName"
-    ).textContent =
-        data.full_name ||
-        data.username;
+    if (sideUsername) {
+        sideUsername.textContent =
+            data.username;
+    }
 
+    if (profileName) {
+        profileName.textContent =
+            data.full_name ||
+            data.username;
+    }
 
-    document.getElementById(
-        "profileUsername"
-    ).textContent =
-        "@" + data.username;
+    if (profileUsername) {
+        profileUsername.textContent =
+            "@" + data.username;
+    }
 
-
-    document.getElementById(
-        "profileBio"
-    ).textContent =
-        data.bio ||
-        "مرحبًا بك في Linka!";
+    if (profileBio) {
+        profileBio.textContent =
+            data.bio ||
+            "مرحبًا بك في Linka!";
+    }
 
 }
 
@@ -609,7 +593,6 @@ async function createPost() {
 
     textarea.value = "";
 
-
     await loadPosts();
 
 }
@@ -628,6 +611,9 @@ async function loadPosts() {
         document.getElementById(
             "postsContainer"
         );
+
+
+    if (!container) return;
 
 
     container.innerHTML =
@@ -689,6 +675,9 @@ function renderPosts(posts) {
         document.getElementById(
             "postsContainer"
         );
+
+
+    if (!container) return;
 
 
     container.innerHTML = "";
@@ -761,11 +750,9 @@ function renderPosts(posts) {
 
                 </div>
 
-
                 <div class="post-content">
                     ${escapeHTML(post.content)}
                 </div>
-
 
                 <div class="post-date">
                     ${date}
@@ -785,7 +772,7 @@ function renderPosts(posts) {
 
 
 // ==================================================
-// 15. SEARCH
+// 15. SEARCH POSTS
 // ==================================================
 
 function searchPosts() {
@@ -794,6 +781,9 @@ function searchPosts() {
         document.getElementById(
             "searchInput"
         );
+
+
+    if (!input) return;
 
 
     const query =
@@ -856,11 +846,14 @@ function showPage(page) {
 
         showAuth("login");
 
-        document.getElementById(
-            "authPage"
-        ).classList.remove(
-            "hidden"
-        );
+        const authPage =
+            document.getElementById(
+                "authPage"
+            );
+
+        if (authPage) {
+            authPage.classList.remove("hidden");
+        }
 
         return;
 
@@ -921,11 +914,942 @@ function showPage(page) {
 
     }
 
+
+    if (page === "friends") {
+
+        loadFriendsPage();
+
+    }
+
 }
 
 
 // ==================================================
-// 18. DARK MODE
+// 18. FRIENDS PAGE
+// ==================================================
+
+async function loadFriendsPage() {
+
+    const page =
+        document.getElementById(
+            "friendsPage"
+        );
+
+
+    if (!page || !currentUser) return;
+
+
+    page.innerHTML = `
+
+        <div class="post">
+
+            <h2>👥 الأصدقاء</h2>
+
+            <p>
+                ابحث عن مستخدم لإرسال طلب صداقة.
+            </p>
+
+            <div style="
+                display:flex;
+                gap:10px;
+                margin-top:15px;
+                flex-wrap:wrap;
+            ">
+
+                <input
+                    id="friendSearchInput"
+                    type="text"
+                    placeholder="ابحث باسم المستخدم..."
+                    style="
+                        flex:1;
+                        min-width:200px;
+                        padding:12px;
+                        border-radius:10px;
+                        border:1px solid #ccc;
+                    "
+                >
+
+                <button
+                    onclick="searchUsers()"
+                    style="
+                        padding:12px 20px;
+                        border:0;
+                        border-radius:10px;
+                        cursor:pointer;
+                    "
+                >
+                    🔎 بحث
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="friendSearchResults"
+        ></div>
+
+
+        <div class="post">
+
+            <h2>📨 طلبات الصداقة</h2>
+
+            <div id="friendRequests">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+
+        <div class="post">
+
+            <h2>👥 أصدقائي</h2>
+
+            <div id="friendsList">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+    `;
+
+
+    await loadFriendRequests();
+    await loadFriendsList();
+
+}
+
+
+// ==================================================
+// 19. SEARCH USERS
+// ==================================================
+
+async function searchUsers() {
+
+    if (!currentUser) return;
+
+
+    const input =
+        document.getElementById(
+            "friendSearchInput"
+        );
+
+
+    const results =
+        document.getElementById(
+            "friendSearchResults"
+        );
+
+
+    if (!input || !results) return;
+
+
+    const query =
+        input.value.trim();
+
+
+    if (!query) {
+
+        results.innerHTML = `
+            <div class="post">
+                اكتب اسم مستخدم للبحث.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    results.innerHTML = `
+        <div class="post">
+            جاري البحث...
+        </div>
+    `;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, full_name, bio"
+            )
+            .ilike(
+                "username",
+                `%${query}%`
+            )
+            .neq(
+                "id",
+                currentUser.id
+            )
+            .limit(20);
+
+
+    if (error) {
+
+        console.error(error);
+
+        results.innerHTML = `
+            <div class="post">
+                حدث خطأ أثناء البحث.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    if (!data || !data.length) {
+
+        results.innerHTML = `
+            <div class="post">
+                لم يتم العثور على مستخدمين.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const friendshipIds =
+        data.map(
+            user => user.id
+        );
+
+
+    const {
+        data: friendships,
+        error: friendshipError
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select("*")
+            .or(
+                `requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`
+            );
+
+
+    if (friendshipError) {
+
+        console.error(friendshipError);
+
+    }
+
+
+    results.innerHTML = `
+        <div class="post">
+
+            <h2>🔎 نتائج البحث</h2>
+
+            <div id="usersResults"></div>
+
+        </div>
+    `;
+
+
+    const usersResults =
+        document.getElementById(
+            "usersResults"
+        );
+
+
+    data.forEach(
+        user => {
+
+            const relation =
+                (friendships || []).find(
+                    friendship =>
+                        (
+                            friendship.requester_id === currentUser.id &&
+                            friendship.addressee_id === user.id
+                        )
+                        ||
+                        (
+                            friendship.requester_id === user.id &&
+                            friendship.addressee_id === currentUser.id
+                        )
+                );
+
+
+            let buttonText =
+                "➕ إضافة صديق";
+
+            let disabled =
+                false;
+
+
+            if (relation) {
+
+                if (
+                    relation.status ===
+                    "accepted"
+                ) {
+
+                    buttonText =
+                        "✅ أصدقاء";
+
+                    disabled = true;
+
+                } else if (
+                    relation.requester_id ===
+                    currentUser.id
+                ) {
+
+                    buttonText =
+                        "⏳ طلب مرسل";
+
+                    disabled = true;
+
+                } else {
+
+                    buttonText =
+                        "📨 قبول الطلب";
+
+                }
+
+            }
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "post";
+
+
+            card.style.marginBottom =
+                "10px";
+
+
+            card.innerHTML = `
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                ">
+
+                    <div>
+
+                        <div style="font-size:20px;">
+                            👤
+                        </div>
+
+                        <strong>
+                            ${escapeHTML(
+                                user.full_name ||
+                                user.username
+                            )}
+                        </strong>
+
+                        <div>
+                            @${escapeHTML(
+                                user.username
+                            )}
+                        </div>
+
+                        <small>
+                            ${escapeHTML(
+                                user.bio || ""
+                            )}
+                        </small>
+
+                    </div>
+
+                    <button
+                        ${
+                            disabled
+                                ? "disabled"
+                                : ""
+                        }
+                        onclick="handleFriendButton(
+                            '${user.id}'
+                        )"
+                        style="
+                            padding:10px 15px;
+                            border:0;
+                            border-radius:10px;
+                            cursor:pointer;
+                        "
+                    >
+                        ${buttonText}
+                    </button>
+
+                </div>
+
+            `;
+
+
+            usersResults.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// 20. HANDLE FRIEND BUTTON
+// ==================================================
+
+async function handleFriendButton(
+    userId
+) {
+
+    if (!currentUser) return;
+
+
+    const {
+        data: existing,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select("*")
+            .or(
+                `and(requester_id.eq.${currentUser.id},addressee_id.eq.${userId}),and(requester_id.eq.${userId},addressee_id.eq.${currentUser.id})`
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "حدث خطأ أثناء فحص طلب الصداقة."
+        );
+
+        return;
+
+    }
+
+
+    const relation =
+        existing &&
+        existing.length
+            ? existing[0]
+            : null;
+
+
+    if (!relation) {
+
+        const {
+            error: insertError
+        } =
+            await supabaseClient
+                .from("friendships")
+                .insert({
+
+                    requester_id:
+                        currentUser.id,
+
+                    addressee_id:
+                        userId,
+
+                    status:
+                        "pending"
+
+                });
+
+
+        if (insertError) {
+
+            console.error(
+                insertError
+            );
+
+            alert(
+                "حدث خطأ أثناء إرسال طلب الصداقة."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "تم إرسال طلب الصداقة ✅"
+        );
+
+
+        await loadFriendsPage();
+
+        return;
+
+    }
+
+
+    if (
+        relation.addressee_id ===
+        currentUser.id &&
+        relation.status ===
+        "pending"
+    ) {
+
+        const {
+            error: updateError
+        } =
+            await supabaseClient
+                .from("friendships")
+                .update({
+                    status: "accepted"
+                })
+                .eq(
+                    "id",
+                    relation.id
+                );
+
+
+        if (updateError) {
+
+            console.error(
+                updateError
+            );
+
+            alert(
+                "حدث خطأ أثناء قبول الطلب."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "تم قبول طلب الصداقة ✅"
+        );
+
+
+        await loadFriendsPage();
+
+    }
+
+}
+
+
+// ==================================================
+// 21. LOAD FRIEND REQUESTS
+// ==================================================
+
+async function loadFriendRequests() {
+
+    if (!currentUser) return;
+
+
+    const container =
+        document.getElementById(
+            "friendRequests"
+        );
+
+
+    if (!container) return;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select(`
+                id,
+                requester_id,
+                addressee_id,
+                status,
+                created_at,
+                profiles:requester_id (
+                    username,
+                    full_name,
+                    bio
+                )
+            `)
+            .eq(
+                "addressee_id",
+                currentUser.id
+            )
+            .eq(
+                "status",
+                "pending"
+            )
+            .order(
+                "created_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "حدث خطأ أثناء تحميل الطلبات.";
+
+        return;
+
+    }
+
+
+    if (!data || !data.length) {
+
+        container.innerHTML =
+            "لا توجد طلبات صداقة جديدة.";
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    data.forEach(
+        request => {
+
+            const profile =
+                request.profiles;
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.style.padding =
+                "12px 0";
+
+            card.style.borderBottom =
+                "1px solid #ddd";
+
+
+            card.innerHTML = `
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(
+                            profile?.full_name ||
+                            profile?.username ||
+                            "مستخدم"
+                        )}
+                    </strong>
+
+                    <div>
+                        @${escapeHTML(
+                            profile?.username ||
+                            ""
+                        )}
+                    </div>
+
+                </div>
+
+                <div style="
+                    display:flex;
+                    gap:8px;
+                    margin-top:10px;
+                ">
+
+                    <button
+                        onclick="acceptFriendRequest(
+                            '${request.id}'
+                        )"
+                    >
+                        ✅ قبول
+                    </button>
+
+                    <button
+                        onclick="rejectFriendRequest(
+                            '${request.id}'
+                        )"
+                    >
+                        ❌ رفض
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// 22. ACCEPT FRIEND REQUEST
+// ==================================================
+
+async function acceptFriendRequest(
+    friendshipId
+) {
+
+    if (!currentUser) return;
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .update({
+                status: "accepted"
+            })
+            .eq(
+                "id",
+                friendshipId
+            )
+            .eq(
+                "addressee_id",
+                currentUser.id
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "حدث خطأ أثناء قبول الطلب."
+        );
+
+        return;
+
+    }
+
+
+    await loadFriendsPage();
+
+}
+
+
+// ==================================================
+// 23. REJECT FRIEND REQUEST
+// ==================================================
+
+async function rejectFriendRequest(
+    friendshipId
+) {
+
+    if (!currentUser) return;
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .delete()
+            .eq(
+                "id",
+                friendshipId
+            )
+            .eq(
+                "addressee_id",
+                currentUser.id
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "حدث خطأ أثناء رفض الطلب."
+        );
+
+        return;
+
+    }
+
+
+    await loadFriendsPage();
+
+}
+
+
+// ==================================================
+// 24. LOAD FRIENDS LIST
+// ==================================================
+
+async function loadFriendsList() {
+
+    if (!currentUser) return;
+
+
+    const container =
+        document.getElementById(
+            "friendsList"
+        );
+
+
+    if (!container) return;
+
+
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("friendships")
+            .select(`
+                id,
+                requester_id,
+                addressee_id,
+                status
+            `)
+            .eq(
+                "status",
+                "accepted"
+            )
+            .or(
+                `requester_id.eq.${currentUser.id},addressee_id.eq.${currentUser.id}`
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "حدث خطأ أثناء تحميل الأصدقاء.";
+
+        return;
+
+    }
+
+
+    if (!data || !data.length) {
+
+        container.innerHTML =
+            "ليس لديك أصدقاء بعد.";
+
+        return;
+
+    }
+
+
+    const friendIds =
+        data.map(
+            friendship =>
+                friendship.requester_id ===
+                currentUser.id
+                    ? friendship.addressee_id
+                    : friendship.requester_id
+        );
+
+
+    const {
+        data: profiles,
+        error: profilesError
+    } =
+        await supabaseClient
+            .from("profiles")
+            .select(
+                "id, username, full_name, bio"
+            )
+            .in(
+                "id",
+                friendIds
+            );
+
+
+    if (profilesError) {
+
+        console.error(
+            profilesError
+        );
+
+        container.innerHTML =
+            "حدث خطأ أثناء تحميل ملفات الأصدقاء.";
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    profiles.forEach(
+        friend => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.style.padding =
+                "12px 0";
+
+            card.style.borderBottom =
+                "1px solid #ddd";
+
+
+            card.innerHTML = `
+
+                <div>
+
+                    <div style="font-size:20px;">
+                        👤
+                    </div>
+
+                    <strong>
+                        ${escapeHTML(
+                            friend.full_name ||
+                            friend.username
+                        )}
+                    </strong>
+
+                    <div>
+                        @${escapeHTML(
+                            friend.username
+                        )}
+                    </div>
+
+                    <small>
+                        ${escapeHTML(
+                            friend.bio || ""
+                        )}
+                    </small>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+// ==================================================
+// 25. DARK MODE
 // ==================================================
 
 function toggleDarkMode() {
@@ -965,7 +1889,7 @@ function loadDarkMode() {
 
 
 // ==================================================
-// 19. LOCAL CHAT DEMO
+// 26. LOCAL CHAT DEMO
 // ==================================================
 
 function sendMessage() {
@@ -974,6 +1898,9 @@ function sendMessage() {
         document.getElementById(
             "messageInput"
         );
+
+
+    if (!input) return;
 
 
     const text =
@@ -987,6 +1914,9 @@ function sendMessage() {
         document.getElementById(
             "chatMessages"
         );
+
+
+    if (!container) return;
 
 
     const message =
@@ -1015,3 +1945,28 @@ function sendMessage() {
         container.scrollHeight;
 
 }
+```
+
+### بعد استبدال الملف
+
+1. احفظ `script.js` في GitHub بـ **Commit changes**.
+2. انتظر حوالي دقيقة.
+3. افتح Linka واضغط **Ctrl + F5**.
+4. سجّل الدخول.
+5. اضغط **👥 الأصدقاء**.
+
+ستظهر لك صفحة جديدة فيها **البحث عن المستخدمين + إرسال طلب صداقة + قبول/رفض الطلبات + قائمة الأصدقاء**.
+
+### ⚠️ ملاحظة مهمة
+
+في الكود أعلاه وضعت:
+
+```javascript
+"ضع_PUBLISHABLE_KEY_هنا"
+```
+
+لأنني لا أريدك أن تنشر مفتاحك الحقيقي هنا. في ملفك على GitHub، **اترك مفتاح Publishable الحقيقي الموجود عندك كما هو**.
+
+بعدها جرّب من الحساب الأول البحث عن **اسم المستخدم الخاص بالحساب الثاني** وإرسال طلب صداقة.
+
+إذا ظهرت لك رسالة خطأ، **لا تغيّر شيئًا آخر**؛ أرسل لي الخطأ وسنصلحه.
