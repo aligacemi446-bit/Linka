@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Linka - شبكة اجتماعية</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- الشريط العلوي -->
+    <header class="topbar">
+
+        <div class="logo">
+            Linka
+        </div>
+
+        <div class="search">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="ابحث في Linka..."
+            >
+        </div>
+
+        <div class="top-actions">
+            <button id="homeBtn">🏠</button>
+            <button id="messagesBtn">💬</button>
+            <button id="notificationsBtn">🔔</button>
+            <button id="profileBtn">👤</button>
+        </div>
+
+    </header>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="layout">
+
+        <!-- القائمة الجانبية -->
+        <aside class="sidebar">
+
+            <div class="profile-mini">
+                <div class="avatar">A</div>
+
+                <div>
+                    <strong>Alex</strong>
+                    <span>@alex</span>
+                </div>
+            </div>
+
+            <hr>
+
+            <button class="side-button active">
+                🏠 الرئيسية
+            </button>
+
+            <button class="side-button">
+                👥 الأصدقاء
+            </button>
+
+            <button class="side-button">
+                💬 الرسائل
+            </button>
+
+            <button class="side-button">
+                🔔 الإشعارات
+            </button>
+
+            <button class="side-button">
+                ⚙️ الإعدادات
+            </button>
+
+        </aside>
+
+
+        <!-- المنشورات -->
+        <section class="feed">
+
+            <!-- إنشاء منشور -->
+            <div class="create-post">
+
+                <div class="avatar">A</div>
+
+                <textarea
+                    id="postInput"
+                    placeholder="ماذا تريد أن تقول؟"
+                ></textarea>
+
+                <div class="post-actions">
+
+                    <button>📷 صورة</button>
+                    <button>😊 شعور</button>
+
+                    <button
+                        id="publishBtn"
+                        class="publish"
+                    >
+                        نشر
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- المنشورات -->
+            <div id="posts">
+
+                <article class="post">
+
+                    <div class="post-header">
+
+                        <div class="avatar">
+                            M
+                        </div>
+
+                        <div>
+                            <strong>Mohamed</strong>
+                            <span>منذ ساعتين</span>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        مرحبًا بالجميع 👋
+                        هذه أول مشاركة لي على Linka!
+                    </p>
+
+                    <div class="post-footer">
+
+                        <button class="like-btn">
+                            ❤️ <span>12</span>
+                        </button>
+
+                        <button>
+                            💬 4
+                        </button>
+
+                        <button>
+                            ↗️ مشاركة
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article class="post">
+
+                    <div class="post-header">
+
+                        <div class="avatar">
+                            S
+                        </div>
+
+                        <div>
+                            <strong>Sarah</strong>
+                            <span>منذ 5 ساعات</span>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        ما رأيكم في تصميم الموقع؟ 🔥
+                    </p>
+
+                    <div class="post-footer">
+
+                        <button class="like-btn">
+                            ❤️ <span>25</span>
+                        </button>
+
+                        <button>
+                            💬 8
+                        </button>
+
+                        <button>
+                            ↗️ مشاركة
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- الجانب الأيمن -->
+        <aside class="rightbar">
+
+            <h3>اقتراحات أصدقاء</h3>
+
+            <div class="friend">
+
+                <div class="avatar">Y</div>
+
+                <div>
+                    <strong>Yacine</strong>
+                    <span>3 أصدقاء مشتركون</span>
+                </div>
+
+                <button>+</button>
+
+            </div>
+
+            <div class="friend">
+
+                <div class="avatar">N</div>
+
+                <div>
+                    <strong>Nour</strong>
+                    <span>5 أصدقاء مشتركون</span>
+                </div>
+
+                <button>+</button>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
