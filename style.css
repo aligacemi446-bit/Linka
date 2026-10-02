@@ -4,16 +4,22 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, sans-serif;
 
     background: #f0f2f5;
 
     color: #1c1e21;
+
+    transition: 0.3s;
 }
 
 
-/* الشريط العلوي */
+/* ================= HEADER ================= */
 
 .topbar {
     height: 65px;
@@ -21,77 +27,128 @@ body {
     background: white;
 
     display: flex;
+
     align-items: center;
 
-    padding: 0 25px;
+    gap: 20px;
 
-    gap: 25px;
+    padding: 0 25px;
 
     border-bottom: 1px solid #ddd;
 
     position: sticky;
+
     top: 0;
 
     z-index: 100;
 }
 
 .logo {
-    font-size: 28px;
+    font-size: 29px;
+
     font-weight: bold;
 
     color: #1877f2;
-
-    width: 150px;
 }
 
-.search {
-    flex: 1;
-}
+.search-box {
+    display: flex;
 
-.search input {
-    width: 100%;
+    align-items: center;
 
-    max-width: 500px;
-
-    padding: 12px 18px;
-
-    border: none;
+    gap: 8px;
 
     background: #f0f2f5;
 
     border-radius: 25px;
 
+    padding: 0 15px;
+
+    width: 400px;
+}
+
+.search-box input {
+    border: none;
+
     outline: none;
 
-    font-size: 15px;
+    background: transparent;
+
+    padding: 12px;
+
+    width: 100%;
+
+    font-size: 14px;
 }
 
 .top-actions {
+    margin-right: auto;
+
     display: flex;
+
     gap: 8px;
 }
 
 .top-actions button {
+    width: 43px;
+
+    height: 43px;
+
     border: none;
 
-    background: #f0f2f5;
-
-    width: 42px;
-    height: 42px;
-
     border-radius: 50%;
+
+    background: #f0f2f5;
 
     cursor: pointer;
 
     font-size: 18px;
+
+    position: relative;
 }
 
 .top-actions button:hover {
     background: #ddd;
 }
 
+.notification-dot {
+    position: absolute;
 
-/* التخطيط */
+    top: -3px;
+
+    left: -3px;
+
+    background: #e41e3f;
+
+    color: white;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    font-size: 11px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.mobile-menu {
+    display: none;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 23px;
+}
+
+
+/* ================= LAYOUT ================= */
 
 .layout {
     max-width: 1400px;
@@ -100,7 +157,7 @@ body {
 
     display: grid;
 
-    grid-template-columns: 230px 1fr 280px;
+    grid-template-columns: 230px 1fr;
 
     gap: 25px;
 
@@ -108,7 +165,7 @@ body {
 }
 
 
-/* القائمة */
+/* ================= SIDEBAR ================= */
 
 .sidebar {
     position: sticky;
@@ -129,8 +186,7 @@ body {
 }
 
 .profile-mini span,
-.post-header span,
-.friend span {
+.post-header span {
     display: block;
 
     color: #777;
@@ -142,6 +198,7 @@ body {
 
 .avatar {
     width: 45px;
+
     height: 45px;
 
     border-radius: 50%;
@@ -153,6 +210,7 @@ body {
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-weight: bold;
@@ -171,15 +229,15 @@ hr {
 .side-button {
     width: 100%;
 
-    padding: 14px;
-
-    margin-bottom: 5px;
-
     border: none;
 
     background: transparent;
 
     text-align: right;
+
+    padding: 14px;
+
+    margin-bottom: 5px;
 
     border-radius: 8px;
 
@@ -194,11 +252,36 @@ hr {
 }
 
 
-/* المنشورات */
+/* ================= CONTENT ================= */
 
-.feed {
+.content {
     min-width: 0;
 }
+
+.page {
+    display: none;
+}
+
+.active-page {
+    display: block;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.page-title h1 {
+    font-size: 28px;
+
+    margin-bottom: 7px;
+}
+
+.page-title p {
+    color: #777;
+}
+
+
+/* ================= CREATE POST ================= */
 
 .create-post,
 .post {
@@ -224,7 +307,7 @@ hr {
 .create-post textarea {
     width: 100%;
 
-    min-height: 70px;
+    min-height: 75px;
 
     resize: none;
 
@@ -262,7 +345,7 @@ hr {
 
     background: transparent;
 
-    padding: 8px 12px;
+    padding: 9px 12px;
 
     border-radius: 7px;
 
@@ -283,6 +366,9 @@ hr {
     padding: 9px 25px;
 }
 
+
+/* ================= POST ================= */
+
 .post-header {
     display: flex;
 
@@ -294,21 +380,19 @@ hr {
 }
 
 .post p {
-    line-height: 1.7;
+    line-height: 1.8;
 
     margin-bottom: 20px;
-
-    font-size: 16px;
 }
 
 .post-footer {
     border-top: 1px solid #eee;
 
-    padding-top: 12px;
+    padding-top: 10px;
 
     display: flex;
 
-    gap: 10px;
+    gap: 8px;
 }
 
 .post-footer button {
@@ -320,82 +404,516 @@ hr {
 
     padding: 10px;
 
-    border-radius: 7px;
-
     cursor: pointer;
+
+    border-radius: 7px;
 }
 
 .post-footer button:hover {
     background: #f0f2f5;
 }
 
-.like-btn.liked {
+.like-button.liked {
     color: #1877f2;
 }
 
 
-/* الجانب الأيمن */
+/* ================= PROFILE ================= */
 
-.rightbar {
+.profile-cover {
+    height: 230px;
+
+    background: linear-gradient(
+        135deg,
+        #1877f2,
+        #7c3aed
+    );
+
+    border-radius: 15px 15px 0 0;
+}
+
+.profile-card {
     background: white;
 
-    border-radius: 12px;
+    text-align: center;
 
     padding: 20px;
 
-    height: fit-content;
+    border-radius: 0 0 15px 15px;
 
-    position: sticky;
-
-    top: 90px;
-}
-
-.rightbar h3 {
     margin-bottom: 20px;
 }
 
-.friend {
+.large-avatar {
+    width: 100px;
+
+    height: 100px;
+
+    border-radius: 50%;
+
+    background: #1877f2;
+
+    color: white;
+
     display: flex;
 
     align-items: center;
 
-    gap: 10px;
+    justify-content: center;
 
-    margin-bottom: 18px;
+    font-size: 35px;
+
+    font-weight: bold;
+
+    margin: -70px auto 15px;
+
+    border: 5px solid white;
 }
 
-.friend > div:nth-child(2) {
-    flex: 1;
+.profile-card h1 {
+    margin-bottom: 5px;
 }
 
-.friend button {
+.profile-card > p {
+    color: #777;
+}
+
+.bio {
+    margin: 15px 0;
+}
+
+.profile-stats {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 60px;
+
+    margin: 25px 0;
+}
+
+.profile-stats div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.profile-stats span {
+    color: #777;
+
+    font-size: 13px;
+}
+
+.edit-profile,
+.primary-button {
     border: none;
 
-    background: #e7f3ff;
+    background: #1877f2;
 
-    color: #1877f2;
+    color: white;
 
-    width: 32px;
-    height: 32px;
+    padding: 11px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+/* ================= FRIENDS ================= */
+
+.friends-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.friend-card {
+    background: white;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.friend-card .large-avatar {
+    margin: 0 auto 15px;
+
+    border: none;
+
+    width: 75px;
+
+    height: 75px;
+}
+
+.friend-card p {
+    color: #777;
+
+    margin: 10px 0 20px;
+
+    font-size: 14px;
+}
+
+
+/* ================= MESSENGER ================= */
+
+.messenger {
+    background: white;
+
+    border-radius: 12px;
+
+    min-height: 600px;
+
+    display: grid;
+
+    grid-template-columns: 280px 1fr;
+
+    overflow: hidden;
+}
+
+.conversation-list {
+    border-left: 1px solid #ddd;
+
+    padding: 10px;
+}
+
+.conversation {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.conversation:hover,
+.conversation.active {
+    background: #f0f2f5;
+}
+
+.conversation span {
+    display: block;
+
+    color: #777;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+.chat {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px;
+
+    border-bottom: 1px solid #ddd;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.chat-header span {
+    display: block;
+
+    color: #20a64a;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+.chat-messages {
+    flex: 1;
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.message {
+    padding: 10px 15px;
+
+    border-radius: 18px;
+
+    max-width: 65%;
+
+    line-height: 1.5;
+}
+
+.message.received {
+    background: #f0f2f5;
+
+    align-self: flex-start;
+}
+
+.message.sent {
+    background: #1877f2;
+
+    color: white;
+
+    align-self: flex-end;
+}
+
+.chat-input {
+    display: flex;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    background: #f0f2f5;
+
+    border-radius: 25px;
+
+    padding: 12px 18px;
+}
+
+.chat-input button {
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
 
     border-radius: 50%;
 
-    cursor: pointer;
+    background: #1877f2;
 
-    font-size: 18px;
+    color: white;
+
+    cursor: pointer;
 }
 
 
-/* الهاتف */
+/* ================= NOTIFICATIONS ================= */
 
-@media (max-width: 1000px) {
+.notifications {
+    background: white;
 
-    .layout {
-        grid-template-columns: 200px 1fr;
+    border-radius: 12px;
+
+    overflow: hidden;
+}
+
+.notification {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.notification p {
+    flex: 1;
+}
+
+.notification > span {
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* ================= SETTINGS ================= */
+
+.settings-card {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 10px;
+}
+
+.setting {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 20px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.setting:last-child {
+    border-bottom: none;
+}
+
+.setting span {
+    display: block;
+
+    color: #777;
+
+    margin-top: 6px;
+
+    font-size: 13px;
+}
+
+.toggle,
+.setting-arrow {
+    border: none;
+
+    width: 45px;
+
+    height: 35px;
+
+    border-radius: 20px;
+
+    background: #eee;
+
+    cursor: pointer;
+}
+
+.toggle.active {
+    background: #1877f2;
+
+    color: white;
+}
+
+
+/* ================= MOBILE MENU ================= */
+
+.mobile-sidebar {
+    display: none;
+
+    background: white;
+
+    padding: 10px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.mobile-sidebar button {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    text-align: right;
+
+    padding: 13px;
+
+    cursor: pointer;
+
+    border-radius: 7px;
+}
+
+.mobile-sidebar button:hover {
+    background: #f0f2f5;
+}
+
+
+/* ================= DARK MODE ================= */
+
+body.dark {
+    background: #18191a;
+
+    color: #e4e6eb;
+}
+
+body.dark .topbar,
+body.dark .sidebar,
+body.dark .mobile-sidebar,
+body.dark .create-post,
+body.dark .post,
+body.dark .profile-card,
+body.dark .friend-card,
+body.dark .messenger,
+body.dark .notifications,
+body.dark .settings-card {
+    background: #242526;
+
+    color: #e4e6eb;
+}
+
+body.dark .search-box,
+body.dark .search-box input,
+body.dark .create-post textarea,
+body.dark .chat-input input,
+body.dark .conversation.active,
+body.dark .conversation:hover,
+body.dark .side-button:hover,
+body.dark .side-button.active {
+    background: #3a3b3c;
+
+    color: #e4e6eb;
+}
+
+body.dark .top-actions button {
+    background: #3a3b3c;
+}
+
+body.dark .post-footer button:hover,
+body.dark .post-actions button:hover {
+    background: #3a3b3c;
+}
+
+body.dark .message.received {
+    background: #3a3b3c;
+}
+
+body.dark hr,
+body.dark .post-footer,
+body.dark .chat-header,
+body.dark .chat-input,
+body.dark .conversation-list,
+body.dark .setting {
+    border-color: #444;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .friends-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .rightbar {
-        display: none;
+    .search-box {
+        width: 250px;
     }
 
 }
@@ -406,26 +924,72 @@ hr {
         padding: 0 12px;
     }
 
-    .logo {
-        width: auto;
-    }
-
-    .search {
-        display: none;
-    }
-
-    .layout {
+    .mobile-menu {
         display: block;
+    }
 
-        padding: 10px;
+    .search-box {
+        display: none;
     }
 
     .sidebar {
         display: none;
     }
 
-    .feed {
-        width: 100%;
+    .layout {
+        display: block;
+
+        padding: 12px;
+    }
+
+    .mobile-sidebar.open {
+        display: block;
+    }
+
+    .friends-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .messenger {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-list {
+        display: none;
+    }
+
+    .profile-stats {
+        gap: 25px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .top-actions {
+        gap: 3px;
+    }
+
+    .top-actions button {
+        width: 38px;
+
+        height: 38px;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .top-actions button:nth-child(1) {
+        display: none;
+    }
+
+    .post-actions button:not(.publish) {
+        display: none;
+    }
+
+    .profile-stats {
+        gap: 15px;
     }
 
 }
