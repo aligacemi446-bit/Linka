@@ -8,7 +8,7 @@
 // ==================================================
 
 const SUPABASE_URL =
-    "https://mpzdmdcqjaxdlfhsevyd.supabase.co/rest/v1/";
+    "https://mpzdmdcqjaxdlfhsevyd.supabase.co";
 
 
 // ضع Publishable key الخاص بك هنا
