@@ -4,85 +4,152 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Linka - شبكة اجتماعية</title>
+    <title>Linka</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- الشريط العلوي -->
-    <header class="topbar">
+<!-- ==================== HEADER ==================== -->
 
-        <div class="logo">
-            Linka
-        </div>
+<header class="topbar">
 
-        <div class="search">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="ابحث في Linka..."
-            >
-        </div>
+    <button class="mobile-menu" id="mobileMenu">
+        ☰
+    </button>
 
-        <div class="top-actions">
-            <button id="homeBtn">🏠</button>
-            <button id="messagesBtn">💬</button>
-            <button id="notificationsBtn">🔔</button>
-            <button id="profileBtn">👤</button>
-        </div>
+    <div class="logo">
+        Linka
+    </div>
 
-    </header>
+    <div class="search-box">
+        🔎
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="ابحث في Linka..."
+        >
+    </div>
+
+    <div class="top-actions">
+
+        <button id="homeButton" title="الرئيسية">
+            🏠
+        </button>
+
+        <button id="messagesButton" title="Messenger">
+            💬
+            <span class="notification-dot">2</span>
+        </button>
+
+        <button id="notificationsButton" title="الإشعارات">
+            🔔
+            <span class="notification-dot">3</span>
+        </button>
+
+        <button id="profileButton" title="الملف الشخصي">
+            👤
+        </button>
+
+    </div>
+
+</header>
 
 
-    <!-- المحتوى الرئيسي -->
-    <main class="layout">
+<!-- ==================== MOBILE MENU ==================== -->
 
-        <!-- القائمة الجانبية -->
-        <aside class="sidebar">
+<div class="mobile-sidebar" id="mobileSidebar">
 
-            <div class="profile-mini">
-                <div class="avatar">A</div>
+    <button data-page="home">🏠 الرئيسية</button>
+    <button data-page="profile">👤 الملف الشخصي</button>
+    <button data-page="friends">👥 الأصدقاء</button>
+    <button data-page="messages">💬 Messenger</button>
+    <button data-page="notifications">🔔 الإشعارات</button>
+    <button data-page="settings">⚙️ الإعدادات</button>
 
-                <div>
-                    <strong>Alex</strong>
-                    <span>@alex</span>
-                </div>
+</div>
+
+
+<!-- ==================== MAIN LAYOUT ==================== -->
+
+<div class="layout">
+
+
+    <!-- ==================== SIDEBAR ==================== -->
+
+    <aside class="sidebar">
+
+        <div class="profile-mini">
+
+            <div class="avatar">
+                A
             </div>
 
-            <hr>
+            <div>
+                <strong>Alex</strong>
+                <span>@alex</span>
+            </div>
 
-            <button class="side-button active">
-                🏠 الرئيسية
-            </button>
+        </div>
 
-            <button class="side-button">
-                👥 الأصدقاء
-            </button>
+        <hr>
 
-            <button class="side-button">
-                💬 الرسائل
-            </button>
+        <button class="side-button active" data-page="home">
+            🏠 الرئيسية
+        </button>
 
-            <button class="side-button">
-                🔔 الإشعارات
-            </button>
+        <button class="side-button" data-page="profile">
+            👤 الملف الشخصي
+        </button>
 
-            <button class="side-button">
-                ⚙️ الإعدادات
-            </button>
+        <button class="side-button" data-page="friends">
+            👥 الأصدقاء
+        </button>
 
-        </aside>
+        <button class="side-button" data-page="messages">
+            💬 Messenger
+        </button>
+
+        <button class="side-button" data-page="notifications">
+            🔔 الإشعارات
+        </button>
+
+        <button class="side-button" data-page="settings">
+            ⚙️ الإعدادات
+        </button>
+
+        <hr>
+
+        <button class="side-button" id="darkModeButton">
+            🌙 الوضع الليلي
+        </button>
+
+    </aside>
 
 
-        <!-- المنشورات -->
-        <section class="feed">
+    <!-- ==================== CONTENT ==================== -->
 
-            <!-- إنشاء منشور -->
+    <main class="content">
+
+
+        <!-- ==================== HOME ==================== -->
+
+        <section class="page active-page" id="homePage">
+
+            <div class="page-title">
+                <h1>الرئيسية</h1>
+                <p>مرحبًا بك في Linka 👋</p>
+            </div>
+
+
+            <!-- CREATE POST -->
+
             <div class="create-post">
 
-                <div class="avatar">A</div>
+                <div class="avatar">
+                    A
+                </div>
 
                 <textarea
                     id="postInput"
@@ -91,12 +158,17 @@
 
                 <div class="post-actions">
 
-                    <button>📷 صورة</button>
-                    <button>😊 شعور</button>
+                    <button>
+                        📷 صورة
+                    </button>
+
+                    <button>
+                        😊 شعور
+                    </button>
 
                     <button
-                        id="publishBtn"
                         class="publish"
+                        id="publishButton"
                     >
                         نشر
                     </button>
@@ -106,8 +178,10 @@
             </div>
 
 
-            <!-- المنشورات -->
+            <!-- POSTS -->
+
             <div id="posts">
+
 
                 <article class="post">
 
@@ -131,7 +205,7 @@
 
                     <div class="post-footer">
 
-                        <button class="like-btn">
+                        <button class="like-button">
                             ❤️ <span>12</span>
                         </button>
 
@@ -164,12 +238,12 @@
                     </div>
 
                     <p>
-                        ما رأيكم في تصميم الموقع؟ 🔥
+                        ما رأيكم في تصميم Linka؟ 🔥
                     </p>
 
                     <div class="post-footer">
 
-                        <button class="like-btn">
+                        <button class="like-button">
                             ❤️ <span>25</span>
                         </button>
 
@@ -185,46 +259,430 @@
 
                 </article>
 
+
             </div>
 
         </section>
 
 
-        <!-- الجانب الأيمن -->
-        <aside class="rightbar">
 
-            <h3>اقتراحات أصدقاء</h3>
+        <!-- ==================== PROFILE ==================== -->
 
-            <div class="friend">
+        <section class="page" id="profilePage">
 
-                <div class="avatar">Y</div>
+            <div class="profile-cover"></div>
 
-                <div>
-                    <strong>Yacine</strong>
-                    <span>3 أصدقاء مشتركون</span>
+            <div class="profile-card">
+
+                <div class="large-avatar">
+                    A
                 </div>
 
-                <button>+</button>
+                <h1>Alex</h1>
+
+                <p>@alex</p>
+
+                <p class="bio">
+                    مرحبًا! أنا أستخدم Linka 🚀
+                </p>
+
+                <div class="profile-stats">
+
+                    <div>
+                        <strong>125</strong>
+                        <span>منشور</span>
+                    </div>
+
+                    <div>
+                        <strong>248</strong>
+                        <span>أصدقاء</span>
+                    </div>
+
+                    <div>
+                        <strong>1.2K</strong>
+                        <span>إعجاب</span>
+                    </div>
+
+                </div>
+
+                <button class="edit-profile">
+                    ✏️ تعديل الملف الشخصي
+                </button>
 
             </div>
 
-            <div class="friend">
+        </section>
 
-                <div class="avatar">N</div>
 
-                <div>
-                    <strong>Nour</strong>
-                    <span>5 أصدقاء مشتركون</span>
-                </div>
 
-                <button>+</button>
+        <!-- ==================== FRIENDS ==================== -->
+
+        <section class="page" id="friendsPage">
+
+            <div class="page-title">
+
+                <h1>الأصدقاء 👥</h1>
+
+                <p>
+                    أصدقاؤك واقتراحات الأصدقاء
+                </p>
 
             </div>
 
-        </aside>
+
+            <div class="friends-grid">
+
+
+                <div class="friend-card">
+
+                    <div class="large-avatar">
+                        Y
+                    </div>
+
+                    <h3>Yacine</h3>
+
+                    <p>3 أصدقاء مشتركون</p>
+
+                    <button class="primary-button">
+                        إضافة صديق
+                    </button>
+
+                </div>
+
+
+                <div class="friend-card">
+
+                    <div class="large-avatar">
+                        N
+                    </div>
+
+                    <h3>Nour</h3>
+
+                    <p>5 أصدقاء مشتركون</p>
+
+                    <button class="primary-button">
+                        إضافة صديق
+                    </button>
+
+                </div>
+
+
+                <div class="friend-card">
+
+                    <div class="large-avatar">
+                        M
+                    </div>
+
+                    <h3>Mohamed</h3>
+
+                    <p>8 أصدقاء مشتركون</p>
+
+                    <button class="primary-button">
+                        إضافة صديق
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================== MESSAGES ==================== -->
+
+        <section class="page" id="messagesPage">
+
+            <div class="page-title">
+
+                <h1>Messenger 💬</h1>
+
+                <p>
+                    محادثاتك
+                </p>
+
+            </div>
+
+
+            <div class="messenger">
+
+                <div class="conversation-list">
+
+                    <div class="conversation active">
+
+                        <div class="avatar">
+                            M
+                        </div>
+
+                        <div>
+                            <strong>Mohamed</strong>
+                            <span>مرحبًا!</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="conversation">
+
+                        <div class="avatar">
+                            S
+                        </div>
+
+                        <div>
+                            <strong>Sarah</strong>
+                            <span>كيف حالك؟</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="conversation">
+
+                        <div class="avatar">
+                            Y
+                        </div>
+
+                        <div>
+                            <strong>Yacine</strong>
+                            <span>نراك لاحقًا</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chat">
+
+                    <div class="chat-header">
+
+                        <div class="avatar">
+                            M
+                        </div>
+
+                        <div>
+                            <strong>Mohamed</strong>
+                            <span>متصل الآن</span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="chat-messages"
+                        id="chatMessages"
+                    >
+
+                        <div class="message received">
+                            مرحبًا 👋
+                        </div>
+
+                        <div class="message sent">
+                            مرحبًا! كيف حالك؟
+                        </div>
+
+                        <div class="message received">
+                            بخير الحمد لله 🔥
+                        </div>
+
+                    </div>
+
+
+                    <div class="chat-input">
+
+                        <input
+                            type="text"
+                            id="messageInput"
+                            placeholder="اكتب رسالة..."
+                        >
+
+                        <button id="sendMessage">
+                            ➤
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================== NOTIFICATIONS ==================== -->
+
+        <section class="page" id="notificationsPage">
+
+            <div class="page-title">
+
+                <h1>الإشعارات 🔔</h1>
+
+                <p>
+                    آخر النشاطات
+                </p>
+
+            </div>
+
+
+            <div class="notifications">
+
+
+                <div class="notification">
+
+                    <div class="avatar">
+                        M
+                    </div>
+
+                    <p>
+                        <strong>Mohamed</strong>
+                        أعجب بمنشورك ❤️
+                    </p>
+
+                    <span>
+                        منذ 5 دقائق
+                    </span>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="avatar">
+                        S
+                    </div>
+
+                    <p>
+                        <strong>Sarah</strong>
+                        أرسلت لك رسالة 💬
+                    </p>
+
+                    <span>
+                        منذ 20 دقيقة
+                    </span>
+
+                </div>
+
+
+                <div class="notification">
+
+                    <div class="avatar">
+                        Y
+                    </div>
+
+                    <p>
+                        <strong>Yacine</strong>
+                        أرسل لك طلب صداقة 👥
+                    </p>
+
+                    <span>
+                        منذ ساعة
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================== SETTINGS ==================== -->
+
+        <section class="page" id="settingsPage">
+
+            <div class="page-title">
+
+                <h1>الإعدادات ⚙️</h1>
+
+                <p>
+                    قم بتخصيص حسابك
+                </p>
+
+            </div>
+
+
+            <div class="settings-card">
+
+
+                <div class="setting">
+
+                    <div>
+                        <strong>الوضع الليلي</strong>
+                        <span>
+                            تغيير مظهر الموقع
+                        </span>
+                    </div>
+
+                    <button
+                        id="settingsDarkMode"
+                        class="toggle"
+                    >
+                        🌙
+                    </button>
+
+                </div>
+
+
+                <div class="setting">
+
+                    <div>
+                        <strong>الإشعارات</strong>
+                        <span>
+                            السماح بإظهار الإشعارات
+                        </span>
+                    </div>
+
+                    <button class="toggle active">
+                        ✓
+                    </button>
+
+                </div>
+
+
+                <div class="setting">
+
+                    <div>
+                        <strong>الخصوصية</strong>
+                        <span>
+                            التحكم في خصوصية حسابك
+                        </span>
+                    </div>
+
+                    <button class="setting-arrow">
+                        ←
+                    </button>
+
+                </div>
+
+
+                <div class="setting">
+
+                    <div>
+                        <strong>اللغة</strong>
+                        <span>
+                            العربية
+                        </span>
+                    </div>
+
+                    <button class="setting-arrow">
+                        ←
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
 
     </main>
 
+
+    <!-- ==================== JAVASCRIPT ==================== -->
 
     <script src="script.js"></script>
 
