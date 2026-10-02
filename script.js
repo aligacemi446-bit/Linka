@@ -9,12 +9,12 @@
 
 // ضع Project URL الخاص بك هنا
 const SUPABASE_URL =
-    "ضع_PROJECT_URL_هنا";
+    "sb_publishable_-Vbi1NmSWSciLOLMIvBY7w_INm0qo0w";
 
 
 // ضع Publishable key الخاص بك هنا
 const SUPABASE_KEY =
-    "ضع_PUBLISHABLE_KEY_هنا";
+    "sb_publishable_-Vbi1NmSWSciLOLMIvBY7w_INm0qo0w";
 
 
 // إنشاء اتصال Supabase
